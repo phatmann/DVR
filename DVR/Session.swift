@@ -24,15 +24,21 @@ public class Session: NSURLSession {
     override public var delegate: NSURLSessionDelegate? {
         return _delegate
     }
+    
+    private let _configuration: NSURLSessionConfiguration
+    override public var configuration: NSURLSessionConfiguration {
+        return _configuration
+    }
 
     // MARK: - Initializers
 
-    public init(outputDirectory: String = "~/Desktop/DVR/", cassetteName: String, testBundle: NSBundle = NSBundle.allBundles().filter() { $0.bundlePath.hasSuffix(".xctest") }.first!, backingSession: NSURLSession = NSURLSession.sharedSession(), delegate: NSURLSessionDelegate? = nil) {
+    public init(outputDirectory: String = "~/Desktop/DVR/", cassetteName: String, testBundle: NSBundle = NSBundle.allBundles().filter() { $0.bundlePath.hasSuffix(".xctest") }.first!, backingSession: NSURLSession = NSURLSession.sharedSession(), delegate: NSURLSessionDelegate? = nil, configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()) {
         self.outputDirectory = outputDirectory
         self.cassetteName = cassetteName
         self.testBundle = testBundle
         self.backingSession = backingSession
         _delegate = delegate
+        _configuration = configuration
         super.init()
     }
 
